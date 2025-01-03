@@ -7,17 +7,17 @@ from .table import Table
 from .json_view import JsonView
 
 __all__ = [
-    'Component',
-    'LabeledComponent',
-    'Container',
-    'FlexRow',
-    'FlexColumn',
-    'Grid',
-    'TextInput',
-    'Button',
-    'Header',
-    'Tag',
-    'Table',
-    'Image',
-    'JsonView',
-] 
+    "Component",
+    "LabeledComponent",
+    "Container",
+    "FlexRow",
+    "FlexColumn",
+    "Grid",
+    "TextInput",
+    "Button",
+    "Header",
+    "Tag",
+    "Table",
+    "Image",
+    "JsonView",
+]

@@ -1,5 +1,5 @@
 import pytest
-from nestvis.components import Header, Tag, Table
+from dataviewer.components import Header, Tag, Table
 
 def test_header_basic():
     """测试标题基本功能"""

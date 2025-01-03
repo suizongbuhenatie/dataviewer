@@ -1,6 +1,6 @@
 import pytest
-from nestvis.core import ComponentRegistry
-from nestvis.components import Button, TextInput, FlexRow, Header
+from dataviewer.core import ComponentRegistry
+from dataviewer.components import Button, TextInput, FlexRow, Header
 
 @pytest.fixture(autouse=True)
 def clear_registry():

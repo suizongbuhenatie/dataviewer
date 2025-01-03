@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="nestvis",
+    name="dataviewer",
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
         "pytest>=7.0.0",
     ],
     python_requires=">=3.7",
-    author="Stone Ye",
+    author="suizongbuhenatie",
     description="一个用于创建嵌套可视化的Python库",
     classifiers=[
         "Development Status :: 3 - Alpha",

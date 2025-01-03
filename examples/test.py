@@ -1,5 +1,5 @@
-from nestvis import Page, Table, Header, Tag, FlexRow, Container
-from nestvis import CellRendererRegistry, CellImageRenderer
+from dataviewer import Page, Table, Header, Tag, FlexRow, Container
+from dataviewer import CellRendererRegistry, CellImageRenderer
 
 # 清除之前的渲染器
 CellRendererRegistry.clear()

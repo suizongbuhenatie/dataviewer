@@ -1,5 +1,5 @@
 import pytest
-from nestvis.components import Container, FlexRow, FlexColumn, Grid, Button
+from dataviewer.components import Container, FlexRow, FlexColumn, Grid, Button
 
 def test_container_basic():
     """测试容器基本功能"""

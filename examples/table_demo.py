@@ -1,5 +1,5 @@
-from nestvis import Page
-from nestvis.components import Table, Header
+from dataviewer import Page
+from dataviewer.components import Table, Header
 
 data = [
     {"id": 1, "name": "产品A", "price": 100, "description": "这是产品A的描述"},

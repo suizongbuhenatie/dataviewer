@@ -1,5 +1,5 @@
 import pytest
-from nestvis.components import TextInput, Button
+from dataviewer.components import TextInput, Button
 
 def test_text_input_basic():
     """测试文本输入框基本功能"""

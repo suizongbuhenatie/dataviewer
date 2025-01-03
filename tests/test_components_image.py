@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
-from nestvis.components import Image
-from nestvis.renderers import CellImageRenderer
+from dataviewer.components import Image
+from dataviewer.renderers import CellImageRenderer
 
 def test_image_basic(tmp_path):
     """测试图片基本功能"""

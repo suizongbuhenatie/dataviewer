@@ -1,7 +1,7 @@
 import pytest
 import warnings
-from nestvis.core import ComponentRegistry
-from nestvis.components import Button, TextInput
+from dataviewer.core import ComponentRegistry
+from dataviewer.components import Button, TextInput
 
 def test_registry_singleton():
     """测试注册表单例模式"""

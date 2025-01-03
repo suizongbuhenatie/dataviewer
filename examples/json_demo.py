@@ -1,5 +1,5 @@
-from nestvis.components import JsonView, FlexColumn, Header, FlexRow
-from nestvis.core import Page
+from dataviewer.components import JsonView, FlexColumn, Header, FlexRow
+from dataviewer.core import Page
 
 # 创建一个示例JSON数据
 sample_data = {

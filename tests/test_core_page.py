@@ -1,7 +1,7 @@
 import pytest
 import os
-from nestvis.core import Page
-from nestvis.components import Button, TextInput, FlexRow, Header
+from dataviewer.core import Page
+from dataviewer.components import Button, TextInput, FlexRow, Header
 
 def test_page_creation():
     """测试页面创建"""

@@ -1,5 +1,5 @@
-from nestvis import Page
-from nestvis.components import Header, FlexRow, FlexColumn, Grid, Tag
+from dataviewer import Page
+from dataviewer.components import Header, FlexRow, FlexColumn, Grid, Tag
 
 # 使用with语句创建页面和组件
 with Page("布局演示", padding="6") as page:

@@ -1,5 +1,5 @@
-from nestvis import Page
-from nestvis.components import Image, Header, FlexRow
+from dataviewer import Page
+from dataviewer.components import Image, Header, FlexRow
 
 # 创建页面
 with Page("图片组件演示") as page:

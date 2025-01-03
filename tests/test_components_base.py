@@ -1,5 +1,5 @@
 import pytest
-from nestvis.components import Component, LabeledComponent
+from dataviewer.components import Component, LabeledComponent
 
 def test_component_id_generation():
     """测试组件ID的自动生成"""

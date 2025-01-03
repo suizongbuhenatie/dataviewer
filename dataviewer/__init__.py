@@ -1,5 +1,5 @@
 """
-nestvis - 一个用于创建嵌套可视化的Python库
+DataViewer - 一个用于创建嵌套可视化的Python库
 """
 
 from .components import *

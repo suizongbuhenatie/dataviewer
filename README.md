@@ -1,4 +1,4 @@
-# NestVis
+# DataViewer
 
 一个简单易用的Python数据可视化工具,支持组件化开发和灵活布局。主要特点:
 
@@ -25,8 +25,8 @@
 
 ### 表格组件示例
 ```python
-from nestvis.components import Table
-from nestvis.core import Page
+from dataviewer.components import Table
+from dataviewer.core import Page
 
 # 创建数据
 data = [
@@ -53,8 +53,8 @@ page.save("table_demo.html")
 
 ### JSON视图组件示例
 ```python
-from nestvis.components import JsonView, FlexColumn
-from nestvis.core import Page
+from dataviewer.components import JsonView, FlexColumn
+from dataviewer.core import Page
 
 # 示例JSON数据
 data = {
@@ -79,8 +79,8 @@ page.save("json_demo.html")
 
 ### 布局组件示例
 ```python
-from nestvis.components import FlexRow, FlexColumn, Header, Image
-from nestvis.core import Page
+from dataviewer.components import FlexRow, FlexColumn, Header, Image
+from dataviewer.core import Page
 
 page = Page("布局示例")
 
@@ -122,7 +122,7 @@ page.save("layout_demo.html")
 
 ## 贡献指南
 
-欢迎提交 Issue 和 Pull Request 来帮助改进 NestVis。
+欢迎提交 Issue 和 Pull Request 来帮助改进 DataViewer。
 
 ## 许可证
 

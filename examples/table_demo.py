@@ -19,6 +19,15 @@ with Image.open("examples/example.jpg") as img:
 for item in data:
     item["image"] = image
 
+data[0]['image'] = [image, image, image]
+data[0]["map"] = {
+    "name": "test_data1",
+    "age": 18,
+    "gender": "male",
+    "test": "test_data2",
+    "description": "这是测试数据2",
+}
+
 with Page("表格演示") as page:
     Header("表格组件演示", level=1)
     Table(data=data)

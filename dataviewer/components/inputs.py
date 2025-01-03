@@ -2,17 +2,23 @@ from typing import Optional
 from dataclasses import dataclass
 from .base import LabeledComponent
 
+
 @dataclass
 class TextInput(LabeledComponent):
     """文本输入框组件"""
+
     placeholder: str = ""
     value: str = ""
-    
+
     def __init__(self, id: Optional[str] = None, **kwargs):
         super().__init__(id=id, **kwargs)
 
     def to_html(self) -> str:
-        label_html = f'<label for="{self.id}" class="block text-sm font-medium text-gray-700">{self.label}</label>' if self.label else ''
+        label_html = (
+            f'<label for="{self.id}" class="block text-sm font-medium text-gray-700">{self.label}</label>'
+            if self.label
+            else ""
+        )
         return f"""
         <div class="mt-1">
             {label_html}
@@ -27,17 +33,19 @@ class TextInput(LabeledComponent):
         </div>
         """
 
+
 @dataclass
 class Button(LabeledComponent):
     """按钮组件"""
+
     text: str = "Button"
     onclick: str = ""
-    
+
     def __init__(self, id: Optional[str] = None, **kwargs):
         super().__init__(id=id, **kwargs)
 
     def to_html(self) -> str:
-        onclick_attr = f'onclick="{self.onclick}"' if self.onclick else ''
+        onclick_attr = f'onclick="{self.onclick}"' if self.onclick else ""
         return f"""
         <button
             type="button"
@@ -47,4 +55,4 @@ class Button(LabeledComponent):
         >
             {self.text}
         </button>
-        """ 
+        """

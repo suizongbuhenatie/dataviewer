@@ -1,41 +1,45 @@
 from typing import List
 from ..components.base import Component, ComponentContext
 
+
 class Page:
-    """页面类,用于组织渲染界面"""
-    _additional_head_content: str = ""  # 用于存储额外的头部内容
-    
+    """Page class, used to organize the rendering interface"""
+
+    _additional_head_content: str = ""  # Used to store additional header content
+
     def __init__(self, title: str, padding: str = "0"):
         self.title = title
         self.padding = padding
         self.components: List[Component] = []
-        
+
     def add(self, component: Component) -> None:
-        """添加组件到页面"""
-        if component not in self.components:  # 避免重复添加
+        """Add a component to the page"""
+        if component not in self.components:  # Avoid duplicate addition
             self.components.append(component)
-        
+
     def __enter__(self):
-        """支持with语句"""
-        ComponentContext.clear()  # 清空组件上下文
-        ComponentContext.push(self)  # 将页面添加到上下文
+        """Support with statement"""
+        ComponentContext.clear()  # Clear the component context
+        ComponentContext.push(self)  # Add the page to the context
         return self
-        
+
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """with语句退出时的处理"""
+        """Processing when exiting the with statement"""
         current = ComponentContext.pop()
-        if current is not self:  # 如果当前上下文不是本页面，说明上下文栈出错了
-            ComponentContext.clear()  # 清空所有上下文
-            raise RuntimeError("页面上下文管理出错")
+        if current is not self:  # If the current context is not this page, it means the context stack is wrong
+            ComponentContext.clear()  # Clear all contexts
+            raise RuntimeError("Page context management error")
 
     def save(self, filename: str) -> None:
-        """保存页面到HTML文件"""
-        with open(filename, 'w', encoding='utf-8') as file:
+        """Save the page to an HTML file"""
+        with open(filename, "w", encoding="utf-8") as file:
             file.write(self.render())
 
     def render(self) -> str:
-        """生成页面的HTML内容"""
-        components_html = "\n".join(component.to_html() for component in self.components if component)
+        """Generate the HTML content of the page"""
+        components_html = "\n".join(
+            component.to_html() for component in self.components if component
+        )
         return f"""<!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +56,16 @@ class Page:
         .container {{
             width: 100%;
             margin: 0 auto;
+        }}
+
+        th {{
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }}
+        
+        td {{
+            word-break: break-word;
+            overflow-wrap: break-word;
         }}
     </style>
     {self._additional_head_content}

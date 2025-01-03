@@ -1,25 +1,30 @@
 import base64
 import os
 from typing import List, Optional, Any, Union
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from ..core.page import Page
+import re
 
 _IMAGE_PREVIEW_INITIALIZED = False
+
 
 @dataclass
 class CellImageRenderer:
     """单元格图片渲染器"""
-    patterns: List[str]  # 匹配的文件扩展名
-    width: str = "100px"  # 图片宽度
+
+    patterns: List[re.Pattern] = field(default_factory=list)
+    width: str = "200px"  # 图片宽度
     height: Optional[str] = None  # 图片高度（可选）
     lazy_load: bool = True  # 是否启用懒加载
-    
+
     def __post_init__(self):
         """初始化时添加必要的样式和脚本到页面"""
         global _IMAGE_PREVIEW_INITIALIZED
         if not _IMAGE_PREVIEW_INITIALIZED:
             _IMAGE_PREVIEW_INITIALIZED = True
-            Page._additional_head_content = Page._additional_head_content + """
+            Page._additional_head_content = (
+                Page._additional_head_content
+                + """
             <style>
                 .image-preview-modal {
                     display: none;
@@ -74,7 +79,7 @@ class CellImageRenderer:
                 <img id="previewImage" src="" alt="预览图片" />
             </div>
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                function openImagePreview(img) {
                     const modal = document.getElementById('imagePreviewModal');
                     const previewImg = document.getElementById('previewImage');
                     
@@ -86,39 +91,49 @@ class CellImageRenderer:
                     modal.onclick = function() {
                         modal.classList.remove('active');
                     };
-                });
+                };
             </script>
             """
-    
-    @staticmethod
-    def encode_image(image_path: str) -> str:
-        """将图片编码为base64字符串"""
-        if any(proto in image_path.lower() for proto in ['http://', 'https://', 'data:']):
-            return image_path
-            
-        if not os.path.exists(image_path):
-            raise FileNotFoundError(f"图片不存在: {image_path}")
-            
-        # 返回相对路径
-        return image_path
-    
+            )
+
+        self.patterns.extend(
+            [
+                re.compile(r"^img://.*"),
+                re.compile(r"^https?://.*\.(?:png|jpg|jpeg|gif|webp|svg)"),
+            ]
+        )
+        self.base64_patterns = [re.compile(r"^/9j")]
+
+    def has_valid_base64_pattern(self, path: str) -> bool:
+        return isinstance(path, str) and any(
+            pattern.match(path) for pattern in self.base64_patterns
+        )
+
+    def has_valid_pattern(self, path: str) -> bool:
+        return isinstance(path, str) and any(
+            pattern.match(path) for pattern in self.patterns
+        )
+
     def can_render(self, value: Any) -> bool:
         """检查是否可以渲染该值"""
-        def has_valid_pattern(path: str) -> bool:
-            return isinstance(path, str) and any(pattern.lower() in path.lower() for pattern in self.patterns)
-            
         if isinstance(value, str):
-            return has_valid_pattern(value)
+            return self.has_valid_pattern(value) or self.has_valid_base64_pattern(value)
         elif isinstance(value, list):
-            return bool(value) and all(has_valid_pattern(item) for item in value)
+            return bool(value) and all(
+                self.has_valid_pattern(item) or self.has_valid_base64_pattern(item)
+                for item in value
+            )
         return False
-    
+
     def render(self, value: Union[str, List[str]]) -> str:
         """渲染图片或图片列表"""
+
         def render_single_image(img_path: str) -> str:
             # 添加懒加载属性
-            loading_attr = ' loading="lazy"' if self.lazy_load else ''
-                
+            loading_attr = ' loading="lazy"' if self.lazy_load else ""
+            if self.has_valid_base64_pattern(img_path):
+                img_path = f"data:image/jpeg;base64,{img_path}"
+
             return f"""
             <img src="{img_path}" 
                  style="width: {self.width};"
@@ -126,10 +141,11 @@ class CellImageRenderer:
                  onclick="openImagePreview(this)"{loading_attr}
                  alt="图片" />
             """
-        
+
         if isinstance(value, list):
             images_html = [render_single_image(img_path) for img_path in value]
             # 使用额外的样式包装器来控制每行显示的数量
             return " ".join(images_html)
         else:
-            return render_single_image(value) 
+            return render_single_image(value)
+

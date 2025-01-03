@@ -4,9 +4,7 @@ setup(
     name="dataviewer",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=[
-        "pytest>=7.0.0",
-    ],
+    install_requires=["pytest>=7.0.0",],
     python_requires=">=3.7",
     author="suizongbuhenatie",
     description="一个用于创建嵌套可视化的Python库",

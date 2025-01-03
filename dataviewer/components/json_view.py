@@ -2,44 +2,51 @@ from typing import Any, Optional
 from .base import Component
 import json
 
+
 class JsonView(Component):
     """重新设计的JSON视图组件，支持层级显示和折叠功能"""
-    
+
     # 定义主题颜色
     COLORS = {
-        'dark': {
-            'background': '#1e1e1e',
-            'text': '#d4d4d4', 
-            'border': '#333333',
-            'toolbar_bg': '#252526',
-            'button_bg': '#333333',
-            'button_hover': '#404040',
-            'toggle': '#6a9955',
-            'key': '#9cdcfe',
-            'string': '#ce9178',
-            'number': '#b5cea8',
-            'boolean': '#569cd6',
-            'bracket': '#808080',
-            'preview': '#808080'
+        "dark": {
+            "background": "#1e1e1e",
+            "text": "#d4d4d4",
+            "border": "#333333",
+            "toolbar_bg": "#252526",
+            "button_bg": "#333333",
+            "button_hover": "#404040",
+            "toggle": "#6a9955",
+            "key": "#9cdcfe",
+            "string": "#ce9178",
+            "number": "#b5cea8",
+            "boolean": "#569cd6",
+            "bracket": "#808080",
+            "preview": "#808080",
         },
-        'light': {
-            'background': '#ffffff',
-            'text': '#333333',
-            'border': '#e8e8e8',
-            'toolbar_bg': '#ffffff',
-            'button_bg': '#f0f0f0',
-            'button_hover': '#e0e0e0',
-            'toggle': '#0b7a3e',
-            'key': '#0451a5',
-            'string': '#a31515',
-            'number': '#098658',
-            'boolean': '#0000ff',
-            'bracket': '#666666',
-            'preview': '#666666'
-        }
+        "light": {
+            "background": "#ffffff",
+            "text": "#333333",
+            "border": "#e8e8e8",
+            "toolbar_bg": "#ffffff",
+            "button_bg": "#f0f0f0",
+            "button_hover": "#e0e0e0",
+            "toggle": "#0b7a3e",
+            "key": "#0451a5",
+            "string": "#a31515",
+            "number": "#098658",
+            "boolean": "#0000ff",
+            "bracket": "#666666",
+            "preview": "#666666",
+        },
     }
-    
-    def __init__(self, data: Any, id: Optional[str] = None, theme: str = "dark", default_expand_level: int = 2):
+
+    def __init__(
+        self,
+        data: Any,
+        id: Optional[str] = None,
+        theme: str = "dark",
+        default_expand_level: int = 2,
+    ):
         """初始化JSON视图组件
         
         Args:
@@ -52,7 +59,7 @@ class JsonView(Component):
         self.data = data
         self.theme = theme.lower()  # 确保主题值是小写的
         self.default_expand_level = default_expand_level
-        
+
     def to_html(self) -> str:
         """将JSON数据渲染为HTML"""
         # 添加必要的CSS样式
@@ -236,7 +243,7 @@ class JsonView(Component):
             }
         </style>
         """
-        
+
         # 添加JavaScript代码
         script = f"""
         <script>
@@ -350,7 +357,7 @@ class JsonView(Component):
             }})();
         </script>
         """
-        
+
         def get_preview(value: Any) -> str:
             """生成预览内容"""
             if isinstance(value, dict):
@@ -364,16 +371,20 @@ class JsonView(Component):
         def render_value(value: Any, key: Optional[str] = None) -> str:
             if isinstance(value, dict):
                 if not value:
-                    return f'<div><span class="json-key">"{key}"</span>: <span class="json-bracket">{{}}</span></div>' if key else '<span class="json-bracket">{{}}</span>'
-                
+                    return (
+                        f'<div><span class="json-key">"{key}"</span>: <span class="json-bracket">{{}}</span></div>'
+                        if key
+                        else '<span class="json-bracket">{{}}</span>'
+                    )
+
                 items = []
                 for k, v in value.items():
                     items.append(render_value(v, k))
-                
+
                 preview = get_preview(value)
-                content = '<div class="json-item">' + ''.join(items) + '</div>'
+                content = '<div class="json-item">' + "".join(items) + "</div>"
                 if key is not None:
-                    return f'''
+                    return f"""
                         <div>
                             <span class="json-toggle">-</span>
                             <span class="json-key">"{key}"</span>: 
@@ -382,8 +393,8 @@ class JsonView(Component):
                             {content}
                             <span class="json-bracket">}}</span>
                         </div>
-                    '''
-                return f'''
+                    """
+                return f"""
                     <div>
                         <span class="json-toggle">-</span>
                         <span class="json-bracket">{{</span>
@@ -391,20 +402,24 @@ class JsonView(Component):
                         {content}
                         <span class="json-bracket">}}</span>
                     </div>
-                '''
-                
+                """
+
             elif isinstance(value, list):
                 if not value:
-                    return f'<div><span class="json-key">"{key}"</span>: <span class="json-bracket">[]</span></div>' if key else '<span class="json-bracket">[]</span>'
-                
+                    return (
+                        f'<div><span class="json-key">"{key}"</span>: <span class="json-bracket">[]</span></div>'
+                        if key
+                        else '<span class="json-bracket">[]</span>'
+                    )
+
                 items = []
                 for item in value:
                     items.append(render_value(item))
-                
+
                 preview = get_preview(value)
-                content = '<div class="json-item">' + ''.join(items) + '</div>'
+                content = '<div class="json-item">' + "".join(items) + "</div>"
                 if key is not None:
-                    return f'''
+                    return f"""
                         <div>
                             <span class="json-toggle">-</span>
                             <span class="json-key">"{key}"</span>: 
@@ -413,8 +428,8 @@ class JsonView(Component):
                             {content}
                             <span class="json-bracket">]</span>
                         </div>
-                    '''
-                return f'''
+                    """
+                return f"""
                     <div>
                         <span class="json-toggle">-</span>
                         <span class="json-bracket">[</span>
@@ -422,21 +437,37 @@ class JsonView(Component):
                         {content}
                         <span class="json-bracket">]</span>
                     </div>
-                '''
-                
+                """
+
             elif isinstance(value, str):
-                return f'<div><span class="json-key">"{key}"</span>: <span class="json-string">"{value}"</span></div>' if key else f'<div><span class="json-string">"{value}"</span></div>'
+                return (
+                    f'<div><span class="json-key">"{key}"</span>: <span class="json-string">"{value}"</span></div>'
+                    if key
+                    else f'<div><span class="json-string">"{value}"</span></div>'
+                )
             elif isinstance(value, (int, float)):
-                return f'<div><span class="json-key">"{key}"</span>: <span class="json-number">{value}</span></div>' if key else f'<div><span class="json-number">{value}</span></div>'
+                return (
+                    f'<div><span class="json-key">"{key}"</span>: <span class="json-number">{value}</span></div>'
+                    if key
+                    else f'<div><span class="json-number">{value}</span></div>'
+                )
             elif isinstance(value, bool):
-                return f'<div><span class="json-key">"{key}"</span>: <span class="json-boolean">{str(value).lower()}</span></div>' if key else f'<div><span class="json-boolean">{str(value).lower()}</span></div>'
+                return (
+                    f'<div><span class="json-key">"{key}"</span>: <span class="json-boolean">{str(value).lower()}</span></div>'
+                    if key
+                    else f'<div><span class="json-boolean">{str(value).lower()}</span></div>'
+                )
             elif value is None:
-                return f'<div><span class="json-key">"{key}"</span>: <span class="json-null">null</span></div>' if key else '<div><span class="json-null">null</span></div>'
-            return ''
-        
+                return (
+                    f'<div><span class="json-key">"{key}"</span>: <span class="json-null">null</span></div>'
+                    if key
+                    else '<div><span class="json-null">null</span></div>'
+                )
+            return ""
+
         # 渲染JSON内容
         content = render_value(self.data)
-        
+
         # 添加工具栏和内容容器
         toolbar = f"""
         <div class="json-toolbar">
@@ -446,7 +477,7 @@ class JsonView(Component):
             <button id="{self.id}-collapse-all">折叠全部</button>
         </div>
         """
-        
+
         return f"""
         {styles}
         <div id="{self.id}" class="json-view theme-{self.theme}">
@@ -456,4 +487,4 @@ class JsonView(Component):
             </div>
         </div>
         {script}
-        """ 
+        """

@@ -1,0 +1,16 @@
+# Test dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Development tools
+black>=22.0.0
+isort>=5.0.0
+flake8>=4.0.0
+mypy>=0.900
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+
+# Project dependencies
+# Add project-specific dependencies here

@@ -2,6 +2,7 @@ from typing import List, Dict, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from .base import Component
 from ..renderers import CellRendererRegistry, DefaultRenderer, CellImageRenderer
+import json
 
 _INIT_CELL_RENDERER = False
 if not _INIT_CELL_RENDERER:
@@ -71,7 +72,6 @@ class Table(Component):
         self.bordered = bordered
         self.compact = compact
 
-        self.column_widths = column_widths or {}
         super().__init__(id=id)
 
         if self.columns is None:
@@ -87,7 +87,12 @@ class Table(Component):
             and "<img" in CellRendererRegistry.render(item)
             for item in value
         )
-        return is_image, is_image_array
+        if is_image:
+            return "image"
+        elif is_image_array:
+            return "image_array"
+        else:
+            return "default"
 
     def _infer_columns(self) -> None:
         """从数据中推断列信息"""
@@ -96,21 +101,10 @@ class Table(Component):
             return
 
         # 使用列表推导式优化性能
-        all_keys = sorted({key for row in self.data for key in row})
+        all_keys = {key for row in self.data for key in row}
         self.columns = [
             {"key": key, "title": key.replace("_", " ").title()} for key in all_keys
         ]
-
-        if self.data:
-            first_row = self.data[0]
-            for key in all_keys:
-                if key not in self.column_widths:
-                    value = first_row.get(key)
-                    is_image, is_image_array = self._get_column_type(value)
-                    if not (is_image or is_image_array):
-                        self.column_widths[
-                            key
-                        ] = f"clamp({self.min_column_width}px, auto, {self.max_column_width}px)"
 
     def _get_display_data(self) -> List[Dict[str, Any]]:
         """获取要显示的数据"""
@@ -130,9 +124,9 @@ class Table(Component):
 
         return data
 
-    def _render_cell(self, value: Any, is_image: bool, is_image_array: bool) -> str:
+    def _render_cell(self, value: Any, col_type: str) -> str:
         """渲染单元格内容"""
-        if is_image_array:
+        if col_type == "image_array":
             # 预先计算图片网格容器样式
             container_style = 'class="w-[120px] h-[120px] flex items-center justify-center overflow-hidden"'
             image_grid = []
@@ -145,14 +139,23 @@ class Table(Component):
                 image_grid
             )
 
+        if isinstance(value, dict):
+            # 优化一下json的显示
+            try:
+                value = json.dumps(value, indent=4, ensure_ascii=False)
+                value = f"<pre>{value}</pre>"
+                return value
+            except Exception as e:
+                pass
+
         rendered = CellRendererRegistry.render(value)
         return rendered if rendered is not None else str(value)
 
-    def get_cell_style(self, is_image: bool, is_image_array: bool) -> str:
-        if is_image_array:
+    def get_cell_style(self, col_type: str) -> str:
+        if col_type == "image_array":
             return 'style="max-width: 1200px;"'
-        elif is_image:
-            return 'style="max-width: 600px;"'
+        elif col_type == "image":
+            return 'style="max-width: 1200px;"'
         else:
             return 'style="max-width: 600px;min-width: 120px;"'
 
@@ -174,26 +177,19 @@ class Table(Component):
 
         # 构建表格头部
         header_cells = []
-        column_types = {}  # 预先计算列类型
 
         # 预先获取第一行数据
         first_row = self.data[0]
         for col in self.columns:
             key = col["key"]
             value = first_row.get(key)
-            column_types[key] = self._get_column_type(value)
-
-            is_image, is_image_array = column_types[key]
 
             header_classes = [*self._HEADER_BASE_CLASSES, *base_cell_classes]
 
-            width_style = self.get_cell_style(is_image, is_image_array)
-
             header_cells.append(
-                '<th scope="col" class="%s" %s>%s</th>'
+                '<th scope="col" class="%s">%s</th>'
                 % (
                     " ".join(header_classes),
-                    width_style,
                     col.get("title", key),
                 )
             )
@@ -206,8 +202,8 @@ class Table(Component):
                 key = col["key"]
                 value = row.get(key, "")
 
-                is_image, is_image_array = column_types[key]
-                rendered_value = self._render_cell(value, is_image, is_image_array)
+                col_type = self._get_column_type(value)
+                rendered_value = self._render_cell(value, col_type)
 
                 cell_classes = base_cell_classes.copy()
                 if self.striped and i % 2 == 1:
@@ -215,12 +211,7 @@ class Table(Component):
                 if self.hoverable:
                     cell_classes.append("hover:bg-gray-100")
 
-                if not (is_image or is_image_array):
-                    cell_classes.extend(
-                        ["whitespace-normal", "break-words", "overflow-hidden"]
-                    )
-
-                width_style = self.get_cell_style(is_image, is_image_array)
+                width_style = self.get_cell_style(col_type)
 
                 cells.append(
                     '<td class="%s" %s>%s</td>'

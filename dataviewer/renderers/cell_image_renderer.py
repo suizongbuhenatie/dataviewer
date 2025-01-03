@@ -148,4 +148,3 @@ class CellImageRenderer:
             return " ".join(images_html)
         else:
             return render_single_image(value)
-

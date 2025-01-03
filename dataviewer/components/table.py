@@ -101,7 +101,12 @@ class Table(Component):
             return
 
         # 使用列表推导式优化性能
-        all_keys = {key for row in self.data for key in row}
+        all_keys = []
+        for row in self.data:
+            for key in row:
+                if key not in all_keys:
+                    all_keys.append(key)
+
         self.columns = [
             {"key": key, "title": key.replace("_", " ").title()} for key in all_keys
         ]
@@ -186,12 +191,12 @@ class Table(Component):
 
             header_classes = [*self._HEADER_BASE_CLASSES, *base_cell_classes]
 
+            col_type = self._get_column_type(value)
+            style = self.get_cell_style(col_type)
+
             header_cells.append(
-                '<th scope="col" class="%s">%s</th>'
-                % (
-                    " ".join(header_classes),
-                    col.get("title", key),
-                )
+                '<th scope="col" class="%s" %s>%s</th>'
+                % (" ".join(header_classes), style, col.get("title", key))
             )
 
         # 构建表格内容

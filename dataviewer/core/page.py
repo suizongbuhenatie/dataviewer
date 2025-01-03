@@ -26,7 +26,9 @@ class Page:
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Processing when exiting the with statement"""
         current = ComponentContext.pop()
-        if current is not self:  # If the current context is not this page, it means the context stack is wrong
+        if (
+            current is not self
+        ):  # If the current context is not this page, it means the context stack is wrong
             ComponentContext.clear()  # Clear all contexts
             raise RuntimeError("Page context management error")
 
@@ -58,14 +60,10 @@ class Page:
             margin: 0 auto;
         }}
 
-        th {{
+        th, td, pre {{
             word-break: break-word;
             overflow-wrap: break-word;
-        }}
-        
-        td {{
-            word-break: break-word;
-            overflow-wrap: break-word;
+            white-space: break-spaces;
         }}
     </style>
     {self._additional_head_content}

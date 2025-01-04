@@ -1,7 +1,7 @@
 from typing import List, Set
 
 from ..components.base import Component, ComponentContext
-
+from dataviewer import logger
 
 class Page:
     """Page class, used to organize the rendering interface"""
@@ -36,6 +36,7 @@ class Page:
 
     def save(self, filename: str) -> None:
         """Save the page to an HTML file"""
+        logger.info(f"Saving page to {filename}")
         with open(filename, "w", encoding="utf-8") as file:
             file.write(self.render())
 

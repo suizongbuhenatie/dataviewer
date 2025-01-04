@@ -1,4 +1,5 @@
 import pytest
+
 from dataviewer.components import Component, LabeledComponent
 
 

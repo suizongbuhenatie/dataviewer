@@ -1,13 +1,11 @@
 """
 DataViewer - 一个用于创建嵌套可视化的Python库
 """
-import logging
-
-logger = logging.getLogger(__name__)
+from .logger import logger
 
 from .components import *
-from .core import Page, ComponentRegistry
-from .renderers import CellRendererRegistry, CellImageRenderer
+from .core import ComponentRegistry, Page
+from .renderers import CellImageRenderer, CellRendererRegistry
 
 __all__ = [
     # Components
@@ -22,6 +20,7 @@ __all__ = [
     "Header",
     "Tag",
     "Table",
+    "Video",
     # Core
     "Page",
     "ComponentRegistry",

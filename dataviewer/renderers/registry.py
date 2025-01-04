@@ -1,6 +1,8 @@
-from typing import List, Optional, Any
-from .cell_image_renderer import CellImageRenderer
+from typing import Any, List, Optional
+
 from dataviewer import logger
+
+from .cell_image_renderer import CellImageRenderer
 
 
 class CellRendererRegistry:
@@ -13,6 +15,7 @@ class CellRendererRegistry:
         """Register Renderer"""
         logger.info(f"Registering Renderer: {renderer}")
         cls._renderers.append(renderer)
+        cls._renderers.sort(key=lambda x: x.level, reverse=True)
 
     @classmethod
     def unregister(cls, renderer: CellImageRenderer) -> None:
@@ -26,6 +29,11 @@ class CellRendererRegistry:
         """Clear all Renderers"""
         logger.info("Clearing all Renderers")
         cls._renderers.clear()
+
+    @classmethod
+    def show_renderers(cls) -> None:
+        """Show all Renderers"""
+        logger.info(f"Registered Renderers: {cls._renderers}")
 
     @classmethod
     def render(cls, value: Any) -> Optional[str]:

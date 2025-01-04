@@ -1,5 +1,7 @@
-import pytest
 from pathlib import Path
+
+import pytest
+
 from dataviewer.components import Image
 from dataviewer.renderers import CellImageRenderer
 

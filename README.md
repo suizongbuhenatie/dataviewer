@@ -32,6 +32,14 @@
 - `Tag`: 标签组件，支持多种颜色和尺寸
 - `Video`: 视频组件，支持多种样式
 
+## Quick Start
+
+```bash
+pip install git+https://github.com/suizongbuhenatie/dataviewer.git
+
+python examples/run_demos.py # 输出结果在output目录下
+```
+
 ## 使用示例
 
 ### 表格组件示例
@@ -45,13 +53,7 @@ data = [
 ]
 
 with Page("表格示例") as page:
-    Table(
-        data=data,
-        page_size=10,
-        hoverable=True,
-        striped=True,
-        bordered=True
-    )
+    Table(data=data)
 
     page.save("table_demo.html")
 ```

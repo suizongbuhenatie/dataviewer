@@ -1,10 +1,11 @@
 from .base import Component, LabeledComponent
-from .containers import Container, FlexRow, FlexColumn, Grid
-from .inputs import TextInput, Button
+from .containers import Container, FlexColumn, FlexRow, Grid
 from .display import Header, Tag
 from .image import Image
-from .table import Table
+from .inputs import Button, TextInput
 from .json_view import JsonView
+from .table import Table
+from .video import Video
 
 __all__ = [
     "Component",
@@ -20,4 +21,5 @@ __all__ = [
     "Table",
     "Image",
     "JsonView",
+    "Video",
 ]

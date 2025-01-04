@@ -1,5 +1,10 @@
 # DataViewer
 
+
+<center><img src="imgs/banner.png" alt="banner" width="100%" style="border-radius: 10px;"/></center>
+
+
+
 一个简单易用的Python数据可视化工具,支持组件化开发和灵活布局。主要特点:
 
 - 组件化开发,提供丰富的预置组件

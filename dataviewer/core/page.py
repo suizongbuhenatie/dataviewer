@@ -1,4 +1,5 @@
-from typing import List
+from typing import List, Set
+
 from ..components.base import Component, ComponentContext
 
 
@@ -6,8 +7,9 @@ class Page:
     """Page class, used to organize the rendering interface"""
 
     _additional_head_content: str = ""  # Used to store additional header content
+    _init_flags: Set[str] = set()
 
-    def __init__(self, title: str, padding: str = "0"):
+    def __init__(self, title: str, padding: str = "4"):
         self.title = title
         self.padding = padding
         self.components: List[Component] = []

@@ -1,13 +1,22 @@
-from typing import List, Dict, Optional, Any, Tuple
-from dataclasses import dataclass, field
-from .base import Component
-from ..renderers import CellRendererRegistry, DefaultRenderer, CellImageRenderer
 import json
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Tuple
+
+from ..renderers import (
+    CellImageRenderer,
+    CellRendererRegistry,
+    CellVideoRenderer,
+    DefaultRenderer,
+)
+from .base import Component
 
 _INIT_CELL_RENDERER = False
 if not _INIT_CELL_RENDERER:
     CellRendererRegistry.register(CellImageRenderer())
     CellRendererRegistry.register(DefaultRenderer())
+    CellRendererRegistry.register(CellVideoRenderer())
+
+    CellRendererRegistry.show_renderers()
     _INIT_CELL_RENDERER = True
 
 
@@ -131,18 +140,8 @@ class Table(Component):
 
     def _render_cell(self, value: Any, col_type: str) -> str:
         """渲染单元格内容"""
-        if col_type == "image_array":
-            # 预先计算图片网格容器样式
-            container_style = 'class="w-[120px] h-[120px] flex items-center justify-center overflow-hidden"'
-            image_grid = []
-            for img_value in value:
-                rendered_img = CellRendererRegistry.render(img_value)
-                if rendered_img and "<img" in rendered_img:
-                    image_grid.append(f"<div {container_style}>{rendered_img}</div>")
-
-            return '<div class="grid grid-cols-5 gap-1 w-[620px]">%s</div>' % "".join(
-                image_grid
-            )
+        if col_type in ["image", "image_array"]:
+            return CellRendererRegistry.render(value)
 
         if isinstance(value, dict):
             # 优化一下json的显示

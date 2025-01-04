@@ -1,6 +1,7 @@
 import pytest
+
+from dataviewer.components import Button, FlexRow, Header, TextInput
 from dataviewer.core import ComponentRegistry
-from dataviewer.components import Button, TextInput, FlexRow, Header
 
 
 @pytest.fixture(autouse=True)

@@ -1,5 +1,6 @@
 import pytest
-from dataviewer.components import Header, Tag, Table
+
+from dataviewer.components import Header, Table, Tag
 
 
 def test_header_basic():

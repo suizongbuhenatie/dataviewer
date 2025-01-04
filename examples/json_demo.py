@@ -1,4 +1,4 @@
-from dataviewer.components import JsonView, FlexColumn, Header, FlexRow
+from dataviewer.components import FlexColumn, FlexRow, Header, JsonView
 from dataviewer.core import Page
 
 # 创建一个示例JSON数据

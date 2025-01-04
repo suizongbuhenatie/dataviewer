@@ -1,7 +1,9 @@
-import pytest
 import os
+
+import pytest
+
+from dataviewer.components import Button, FlexRow, Header, TextInput
 from dataviewer.core import Page
-from dataviewer.components import Button, TextInput, FlexRow, Header
 
 
 def test_page_creation():

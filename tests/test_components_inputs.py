@@ -1,5 +1,6 @@
 import pytest
-from dataviewer.components import TextInput, Button
+
+from dataviewer.components import Button, TextInput
 
 
 def test_text_input_basic():

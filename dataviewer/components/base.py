@@ -1,7 +1,7 @@
-from typing import Optional, ClassVar, Dict, List
 from abc import ABC
 from collections import defaultdict
 from dataclasses import dataclass
+from typing import ClassVar, Dict, List, Optional
 
 
 class ComponentContext:

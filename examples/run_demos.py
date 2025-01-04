@@ -1,34 +1,40 @@
+import logging
 import os
 import sys
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
+
 
 def run_demos():
-    # 创建output目录
+    # Create output directory
     output_dir = Path("output")
     output_dir.mkdir(exist_ok=True)
 
-    # 获取所有demo文件
+    # Get all demo files
     demo_files = [
         f
         for f in os.listdir("examples")
         if f.endswith("_demo.py") and f != "run_demos.py"
     ]
 
-    print(f"找到 {len(demo_files)} 个示例文件")
+    print(f"Found {len(demo_files)} demo files")
 
-    # 添加当前目录到Python路径
+    # Add current directory to Python path
     sys.path.insert(0, ".")
 
-    # 执行每个demo
+    # Execute each demo
     for demo_file in demo_files:
-        print(f"\n执行示例: {demo_file}")
-        try:
-            # 直接执行Python文件
-            exec(open(f"examples/{demo_file}").read())
-            print(f"✓ {demo_file} 执行成功")
-        except Exception as e:
-            print(f"✗ {demo_file} 执行失败: {str(e)}")
+        print(f"\nExecuting demo: {demo_file}")
+        # 使用os系统执行Python文件
+        result = os.system(f"python examples/{demo_file}")
+        if result == 0:
+            print(f"\033[92m✓ {demo_file} 执行成功\033[0m")
+        else:
+            print(f"\033[91m✗ {demo_file} execution failed: {result}\033[0m")
+
+    os.system("cp examples/*.jpg output/")
+    os.system("cp examples/*.mp4 output/")
 
 
 if __name__ == "__main__":

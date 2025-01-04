@@ -1,8 +1,9 @@
-from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from functools import lru_cache
-from .base import Component, LabeledComponent
+from typing import Any, Dict, List, Optional
+
 from ..renderers import CellRendererRegistry
+from .base import Component, LabeledComponent
 
 
 def cached_render(func):

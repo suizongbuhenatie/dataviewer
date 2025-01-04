@@ -1,7 +1,9 @@
-import pytest
 import warnings
-from dataviewer.core import ComponentRegistry
+
+import pytest
+
 from dataviewer.components import Button, TextInput
+from dataviewer.core import ComponentRegistry
 
 
 def test_registry_singleton():

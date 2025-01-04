@@ -1,5 +1,6 @@
-from typing import List, Optional
 from dataclasses import dataclass, field
+from typing import List, Optional
+
 from .base import Component
 
 

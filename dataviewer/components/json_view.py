@@ -1,6 +1,7 @@
-from typing import Any, Optional
-from .base import Component
 import json
+from typing import Any, Optional
+
+from .base import Component
 
 
 class JsonView(Component):

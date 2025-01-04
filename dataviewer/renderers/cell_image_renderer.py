@@ -1,9 +1,10 @@
 import base64
 import os
-from typing import List, Optional, Any, Union
-from dataclasses import dataclass, field
-from ..core.page import Page
 import re
+from dataclasses import dataclass, field
+from typing import Any, List, Optional, Union
+
+from ..core.page import Page
 
 _IMAGE_PREVIEW_INITIALIZED = False
 
@@ -16,12 +17,16 @@ class CellImageRenderer:
     width: str = "200px"  # 图片宽度
     height: Optional[str] = None  # 图片高度（可选）
     lazy_load: bool = True  # 是否启用懒加载
+    level: int = 1
+
+    def __repr__(self) -> str:
+        return "CellImageRenderer()"
 
     def __post_init__(self):
         """初始化时添加必要的样式和脚本到页面"""
-        global _IMAGE_PREVIEW_INITIALIZED
-        if not _IMAGE_PREVIEW_INITIALIZED:
-            _IMAGE_PREVIEW_INITIALIZED = True
+        if "image_preview" not in Page._init_flags:
+            Page._init_flags.add("image_preview")
+
             Page._additional_head_content = (
                 Page._additional_head_content
                 + """
@@ -99,7 +104,7 @@ class CellImageRenderer:
         self.patterns.extend(
             [
                 re.compile(r"^img://.*"),
-                re.compile(r"^https?://.*\.(?:png|jpg|jpeg|gif|webp|svg)"),
+                re.compile(r".*\.(?:png|jpg|jpeg|gif|webp|svg)$"),
             ]
         )
         self.base64_patterns = [re.compile(r"^/9j")]
@@ -144,7 +149,10 @@ class CellImageRenderer:
 
         if isinstance(value, list):
             images_html = [render_single_image(img_path) for img_path in value]
-            # 使用额外的样式包装器来控制每行显示的数量
-            return " ".join(images_html)
+            n_images = len(images_html)
+            if n_images < 5:
+                return f'<div style="display: grid; grid-template-columns: repeat({n_images}, 1fr); gap: 10px;">{"".join(images_html)}</div>'
+            else:
+                return f'<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">{"".join(images_html)}</div>'
         else:
             return render_single_image(value)

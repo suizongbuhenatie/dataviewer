@@ -1,5 +1,6 @@
 import pytest
-from dataviewer.components import Container, FlexRow, FlexColumn, Grid, Button
+
+from dataviewer.components import Button, Container, FlexColumn, FlexRow, Grid
 
 
 def test_container_basic():

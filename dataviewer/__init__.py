@@ -1,10 +1,9 @@
 """
 DataViewer - 一个用于创建嵌套可视化的Python库
 """
-from .logger import logger
-
 from .components import *
 from .core import ComponentRegistry, Page
+from .logger import logger
 from .renderers import CellImageRenderer, CellRendererRegistry
 
 __all__ = [

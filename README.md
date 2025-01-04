@@ -1,9 +1,7 @@
 # DataViewer
 
 
-<center><img src="imgs/banner.png" alt="banner" width="100%" style="border-radius: 10px;"/></center>
-
-
+<center><img src="imgs/banner.jpg" alt="banner" width="100%" style="border-radius: 10px;"/></center>
 
 一个简单易用的Python数据可视化工具,支持组件化开发和灵活布局。主要特点:
 
@@ -11,6 +9,13 @@
 - 支持灵活的布局系统(FlexRow、FlexColumn、Grid等)
 - 内置多种主题和样式
 - 简单直观的API设计
+
+<center>
+    <div style="display: flex; justify-content: center; align-items: center;gap: 10px;">
+        <img src="imgs/screenshot.jpg" alt="example" width="50%" style="border-radius: 10px;"/>
+        <img src="imgs/screenshot2.jpg" alt="example" width="50%" style="border-radius: 10px;"/>
+    </div>
+</center>
 
 ## 主要组件
 

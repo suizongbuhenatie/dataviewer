@@ -32,12 +32,7 @@ class Table(Component):
     striped: bool = True
     bordered: bool = True
     compact: bool = False
-    sort_by: Optional[str] = None
-    sort_desc: bool = False
-    min_column_width: int = 300
-    max_column_width: int = 300
-    resizable: bool = False
-    column_widths: Dict[str, str] = field(default_factory=dict)
+    max_row_height: Optional[int] = None
 
     # 预计算样式
     _TABLE_BASE_CLASSES = ["table-auto", "divide-y", "divide-gray-200", "bg-white"]
@@ -64,12 +59,7 @@ class Table(Component):
         striped: bool = True,
         bordered: bool = True,
         compact: bool = False,
-        sort_by: Optional[str] = None,
-        sort_desc: bool = False,
-        min_column_width: Optional[int] = None,
-        max_column_width: Optional[int] = None,
-        resizable: bool = False,
-        column_widths: Optional[Dict[str, str]] = None,
+        max_row_height: Optional[int] = None,
         id: Optional[str] = None,
     ):
         self.data = data
@@ -80,6 +70,7 @@ class Table(Component):
         self.striped = striped
         self.bordered = bordered
         self.compact = compact
+        self.max_row_height = max_row_height
 
         super().__init__(id=id)
 
@@ -120,24 +111,6 @@ class Table(Component):
             {"key": key, "title": key.replace("_", " ").title()} for key in all_keys
         ]
 
-    def _get_display_data(self) -> List[Dict[str, Any]]:
-        """获取要显示的数据"""
-        if not self.data:
-            return []
-
-        if self.sort_by:
-            data = sorted(
-                self.data, key=lambda x: x.get(self.sort_by, ""), reverse=self.sort_desc
-            )
-        else:
-            data = self.data
-
-        if self.page_size:
-            start = (self.current_page - 1) * self.page_size
-            return data[start : start + self.page_size]
-
-        return data
-
     def _render_cell(self, value: Any, col_type: str) -> str:
         """渲染单元格内容"""
         if col_type in ["image", "image_array"]:
@@ -148,6 +121,8 @@ class Table(Component):
             try:
                 value = json.dumps(value, indent=4, ensure_ascii=False)
                 value = f"<pre>{value}</pre>"
+                if self.max_row_height:
+                    value = f'<div style="max-height: {self.max_row_height}px; overflow: scroll;">{value}</div>'
                 return value
             except Exception as e:
                 pass
@@ -167,7 +142,7 @@ class Table(Component):
         if not self.data:
             return ""
 
-        display_data = self._get_display_data()
+        display_data = self.data
 
         # 构建表格类名
         table_classes = self._TABLE_BASE_CLASSES.copy()

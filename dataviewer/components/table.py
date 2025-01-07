@@ -136,7 +136,7 @@ class Table(Component):
         elif col_type == "image":
             return 'style="max-width: 1200px;"'
         else:
-            return 'style="max-width: 600px;min-width: 120px;"'
+            return 'style="max-width: 600px;min-width: 400px;"'
 
     def to_html(self) -> str:
         if not self.data:

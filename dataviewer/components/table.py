@@ -87,10 +87,13 @@ class Table(Component):
             and "<img" in CellRendererRegistry.render(item)
             for item in value
         )
+        is_large_text = len(value) > 100
         if is_image:
             return "image"
         elif is_image_array:
             return "image_array"
+        elif is_large_text:
+            return "large_text"
         else:
             return "default"
 
@@ -132,11 +135,13 @@ class Table(Component):
 
     def get_cell_style(self, col_type: str) -> str:
         if col_type == "image_array":
-            return 'style="max-width: 1200px;"'
+            return 'style="max-width: 1200px;min-width:1200px"'
         elif col_type == "image":
-            return 'style="max-width: 1200px;"'
+            return 'style="max-width: 1200px;min-width:300px"'
+        elif col_type == "large_text":
+            return 'style="max-width: 1200px;min-width: 600px;"'
         else:
-            return 'style="max-width: 600px;min-width: 400px;"'
+            return 'style="max-width: 600px;min-width: 120px;"'
 
     def to_html(self) -> str:
         if not self.data:

@@ -89,7 +89,7 @@ class Table(Component):
         )
         is_long_text = isinstance(value, str) and len(value) > 50
         is_json = isinstance(value, dict) or isinstance(value, list)
-
+    
         if is_image:
             return "image"
         elif is_image_array:

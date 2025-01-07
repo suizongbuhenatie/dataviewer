@@ -3,7 +3,6 @@ from typing import List, Set
 from ..components.base import Component, ComponentContext
 from dataviewer import logger
 
-
 class Page:
     """Page class, used to organize the rendering interface"""
 

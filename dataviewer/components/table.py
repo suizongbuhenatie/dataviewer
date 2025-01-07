@@ -87,10 +87,17 @@ class Table(Component):
             and "<img" in CellRendererRegistry.render(item)
             for item in value
         )
+        is_long_text = isinstance(value, str) and len(value) > 50
+        is_json = isinstance(value, dict) or isinstance(value, list)
+
         if is_image:
             return "image"
         elif is_image_array:
             return "image_array"
+        elif is_long_text:
+            return "long_text"
+        elif is_json:
+            return "json"
         else:
             return "default"
 
@@ -135,6 +142,10 @@ class Table(Component):
             return 'style="max-width: 1200px;"'
         elif col_type == "image":
             return 'style="max-width: 1200px;"'
+        elif col_type == "long_text":
+            return 'style="max-width: 1200px;min-width: 600px;"'
+        elif col_type == "json":
+            return 'style="max-width: 1200px;min-width: 600px;"'
         else:
             return 'style="max-width: 600px;min-width: 120px;"'
 

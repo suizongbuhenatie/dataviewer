@@ -2,12 +2,8 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-from ..renderers import (
-    CellImageRenderer,
-    CellRendererRegistry,
-    CellVideoRenderer,
-    DefaultRenderer,
-)
+from ..renderers import (CellImageRenderer, CellRendererRegistry,
+                         CellVideoRenderer, DefaultRenderer)
 from .base import Component
 
 _INIT_CELL_RENDERER = False
@@ -89,7 +85,7 @@ class Table(Component):
         )
         is_long_text = isinstance(value, str) and len(value) > 50
         is_json = isinstance(value, dict) or isinstance(value, list)
-    
+
         if is_image:
             return "image"
         elif is_image_array:
@@ -139,9 +135,9 @@ class Table(Component):
 
     def get_cell_style(self, col_type: str) -> str:
         if col_type == "image_array":
-            return 'style="max-width: 1200px;"'
+            return 'style="max-width: 1200px;min-width: 800px;"'
         elif col_type == "image":
-            return 'style="max-width: 1200px;"'
+            return 'style="max-width: 1200px;min-width: 300px;"'
         elif col_type == "long_text":
             return 'style="max-width: 1200px;min-width: 600px;"'
         elif col_type == "json":

@@ -44,8 +44,7 @@ python examples/run_demos.py # 输出结果在output目录下
 
 ### 表格组件示例
 ```python
-from dataviewer.components import Table
-from dataviewer.core import Page
+from dataviewer import Page, Table
 
 data = [
     {"id": 1, "name": "张三", "age": 25},
@@ -60,8 +59,7 @@ with Page("表格示例") as page:
 
 ### JSON视图组件示例
 ```python
-from dataviewer.components import JsonView, FlexColumn
-from dataviewer.core import Page
+from dataviewer import Page, JsonView, FlexColumn
 
 # 示例JSON数据
 data = {
@@ -83,8 +81,7 @@ with Page("JSON示例") as page:
 
 ### 布局组件示例
 ```python
-from dataviewer.components import FlexRow, FlexColumn, Header, Image
-from dataviewer.core import Page
+from dataviewer import Page, FlexRow, FlexColumn, Header, Image
 
 with Page("布局示例") as page:
     with FlexRow(gap="20px", justify="between"):

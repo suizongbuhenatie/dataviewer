@@ -39,7 +39,6 @@ class Table(Component):
         "text-xs",
         "font-medium",
         "text-gray-500",
-        "uppercase",
         "tracking-wider",
         "whitespace-normal",
         "break-words",

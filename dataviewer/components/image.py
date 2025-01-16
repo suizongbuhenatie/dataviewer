@@ -5,22 +5,22 @@ from ..core.page import Page
 from .base import Component
 
 
+"""Image Component"""
+
 @dataclass
 class Image(Component):
-    """图片组件"""
-
-    src: str  # 图片路径
-    width: Optional[int] = None  # 宽度（像素）
-    height: Optional[int] = None  # 高度（像素）
-    alt: str = ""  # 替代文本
-    css_class: str = ""  # CSS类名
-    lazy_load: bool = True  # 是否启用懒加载
+    src: str  # Image path
+    width: Optional[int] = None  # Width (pixels)
+    height: Optional[int] = None  # Height (pixels)
+    alt: str = ""  # Alternative text
+    css_class: str = ""  # CSS class name
+    lazy_load: bool = True  # Enable lazy loading
 
     def __init__(self, id: Optional[str] = None, **kwargs):
         super().__init__(id=id, **kwargs)
 
     def __post_init__(self):
-        """初始化时添加必要的样式和脚本到页面"""
+        """Initializes necessary styles and scripts on the page"""
         if "image_preview" not in Page._init_flags:
             Page._init_flags.add("image_preview")
 
@@ -78,7 +78,7 @@ class Image(Component):
                 }
             </style>
             <div id="imagePreviewModal" class="image-preview-modal">
-                <img id="previewImage" src="" alt="预览图片" />
+                <img id="previewImage" src="" alt="Preview Image" />
             </div>
             <script>
                 function openImagePreview(img) {

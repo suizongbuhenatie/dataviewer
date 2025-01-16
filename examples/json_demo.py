@@ -1,31 +1,29 @@
 from dataviewer.components import FlexColumn, FlexRow, Header, JsonView
 from dataviewer.core import Page
 
-# 创建一个示例JSON数据
+# Create an example JSON data
 sample_data = {
-    "name": "张三",
+    "name": "John",
     "age": 30,
-    "is_student": False,
-    "hobbies": ["读书", "游泳", "编程"],
-    "address": {"city": "北京", "street": "朝阳路", "number": 123},
-    "family": {
-        "father": {"name": "张大山", "age": 55},
-        "mother": {"name": "李小花", "age": 53},
-        "siblings": [{"name": "张小妹", "age": 25}],
-    },
+    "hobbies": ["Reading", "Swimming", "Programming"],
+    "address": {"city": "Beijing", "street": "Chaoyang Road", "number": 123},
+    "married": True,
+    "father": {"name": "John Sr.", "age": 55},
+    "mother": {"name": "Mary", "age": 53},
+    "siblings": [{"name": "Jane", "age": 25}],
 }
 
-# 创建页面
-page = Page("JSON组件演示")
+# Create page
+page = Page("JSON Component Demo")
 
 with page:
     with FlexRow(gap="20px", justify="between"):
         with FlexColumn(padding="2"):
-            Header("深色主题")
+            Header("Dark Theme")
             JsonView(sample_data, theme="dark")
 
         with FlexColumn(padding="2"):
-            Header("浅色主题")
+            Header("Light Theme")
             JsonView(sample_data, theme="light")
 
 if __name__ == "__main__":

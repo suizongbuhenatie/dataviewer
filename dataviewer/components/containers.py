@@ -4,31 +4,26 @@ from typing import List, Optional
 from .base import Component
 
 
+"""Base container class for layout"""
+
 @dataclass
 class Container(Component):
-    """容器基类，用于布局"""
+    children: Optional[List[Component]] = None  # List of child components
+    gap: str = "4"  # Gap between items
+    padding: str = "0"  # Padding
+    margin: str = "0"  # Margin
 
-    gap: str = "4"  # gap between items
-    padding: str = "0"  # padding
-    margin: str = "0"  # margin
-    children: Optional[List[Component]] = None  # 子组件列表
-
-    def __init__(
-        self, id: Optional[str] = None, padding: str = "0", margin: str = "0", **kwargs
-    ):
-        if "children" in kwargs:
-            self.children = kwargs.pop("children")
+    def __init__(self, id: Optional[str] = None, gap: str = "4", padding: str = "0", margin: str = "0", **kwargs):
+        super().__init__(id=id, **kwargs)
+        self.gap = gap
         self.padding = padding
         self.margin = margin
-        super().__init__(id=id, **kwargs)
         if self.children is None:
             self.children = []
 
     def add(self, component: Component) -> None:
-        """添加子组件"""
-        if self.children is None:
-            self.children = []
-        if component not in self.children:  # 避免重复添加
+        """Add child component"""
+        if component not in self.children:  # Avoid duplicate additions
             self.children.append(component)
 
     def to_html(self) -> str:
@@ -43,10 +38,10 @@ class Container(Component):
         """
 
 
+"""Horizontal flex layout"""
+
 @dataclass
 class FlexRow(Container):
-    """水平弹性布局"""
-
     justify: str = "start"  # start, end, center, between, around
     align: str = "start"  # start, end, center, stretch
     wrap: bool = False
@@ -105,10 +100,10 @@ class FlexRow(Container):
         """
 
 
+"""Vertical flex layout"""
+
 @dataclass
 class FlexColumn(Container):
-    """垂直弹性布局"""
-
     justify: str = "start"  # start, end, center, between, around
     align: str = "start"  # start, end, center, stretch
 
@@ -162,13 +157,13 @@ class FlexColumn(Container):
         """
 
 
+"""Grid layout"""
+
 @dataclass
 class Grid(Container):
-    """网格布局"""
-
-    cols: int = 2  # 列数
-    rows: Optional[int] = None  # 行数（可选）
-    gap: str = "4"  # 间距
+    cols: int = 2  # Number of columns
+    rows: Optional[int] = None  # Number of rows (optional)
+    gap: str = "4"  # gap between items
 
     def __init__(
         self,

@@ -15,56 +15,43 @@ with Image.open("examples/example.jpg") as img:
 data = [
     {
         "id": 1,
-        "name": "产品A",
+        "name": "Product A",
         "price": 100,
-        "description": "这款手提包是时尚达人的不二之选。它整体采用高品质的耐磨皮革制成，触感柔软且极具质感。简约的设计风格，没有过多繁杂的装饰，却在线条的勾勒下尽显优雅大气。包身容量很大，内部合理的隔层可轻松容纳手机、钱包、化妆品等日常用品。提手部分加固处理，手提舒适且不易断裂。经典的纯色外观，无论是休闲出行还是职场办公都能完美搭配。无论是逛街、上班还是参加聚会，背着它都能彰显您的时尚品味和独特魅力。",
+        "description": "This handbag is the perfect choice for fashion enthusiasts. Made from high-quality durable leather, it offers a soft touch and premium feel. The minimalist design, free from excessive decorations, exudes elegance through its refined lines. The bag's spacious interior with well-organized compartments easily accommodates phones, wallets, cosmetics, and other daily essentials. The reinforced handle ensures comfortable carrying and durability. Its classic solid color design perfectly complements both casual outings and office wear. Whether shopping, working, or attending gatherings, this bag showcases your fashion sense and unique charm.",
         "image": [image, image, image],
         "info": {
-            "name": "优雅的测试数据1",
+            "name": "Elegant Test Data 1",
             "age": 18,
             "gender": "male",
-            "description": "这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据这是优雅的测试数据",
+            "description": "This is elegant test data " * 30,
         },
     },
     {
         "id": 2,
-        "name": "产品B",
+        "name": "Product B",
         "price": 200,
-        "image": [
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-            "example.jpg",
-        ],
-        "description": "这款手提包是时尚达人的不二之选。它整体采用高品质的耐磨皮革制成，触感柔软且极具质感。简约的设计风格，没有过多繁杂的装饰，却在线条的勾勒下尽显优雅大气。包身容量很大，内部合理的隔层可轻松容纳手机、钱包、化妆品等日常用品。提手部分加固处理，手提舒适且不易断裂。经典的纯色外观，无论是休闲出行还是职场办公都能完美搭配。无论是逛街、上班还是参加聚会，背着它都能彰显您的时尚品味和独特魅力。",
+        "image": ["example.jpg"] * 12,
+        "description": "This handbag is the perfect choice for fashion enthusiasts. Made from high-quality durable leather, it offers a soft touch and premium feel. The minimalist design, free from excessive decorations, exudes elegance through its refined lines. The bag's spacious interior with well-organized compartments easily accommodates phones, wallets, cosmetics, and other daily essentials. The reinforced handle ensures comfortable carrying and durability. Its classic solid color design perfectly complements both casual outings and office wear. Whether shopping, working, or attending gatherings, this bag showcases your fashion sense and unique charm.",
         "video": "example.mp4",
     },
     {
         "id": 2,
-        "name": "产品B",
+        "name": "Product B",
         "price": 200,
         "image": "example.jpg",
-        "description": "这款手提包是时尚达人的不二之选。它整体采用高品质的耐磨皮革制成，触感柔软且极具质感。简约的设计风格，没有过多繁杂的装饰，却在线条的勾勒下尽显优雅大气。包身容量很大，内部合理的隔层可轻松容纳手机、钱包、化妆品等日常用品。提手部分加固处理，手提舒适且不易断裂。经典的纯色外观，无论是休闲出行还是职场办公都能完美搭配。无论是逛街、上班还是参加聚会，背着它都能彰显您的时尚品味和独特魅力。",
+        "description": "This handbag is the perfect choice for fashion enthusiasts. Made from high-quality durable leather, it offers a soft touch and premium feel. The minimalist design, free from excessive decorations, exudes elegance through its refined lines. The bag's spacious interior with well-organized compartments easily accommodates phones, wallets, cosmetics, and other daily essentials. The reinforced handle ensures comfortable carrying and durability. Its classic solid color design perfectly complements both casual outings and office wear. Whether shopping, working, or attending gatherings, this bag showcases your fashion sense and unique charm.",
         "video": "example.mp4",
     },
     {
         "id": 3,
-        "name": "产品C",
+        "name": "Product C",
         "price": 300,
         "image": image,
-        "description": "这款手提包是时尚达人的不二之选。它整体采用高品质的耐磨皮革制成，触感柔软且极具质感。简约的设计风格，没有过多繁杂的装饰，却在线条的勾勒下尽显优雅大气。包身容量很大，内部合理的隔层可轻松容纳手机、钱包、化妆品等日常用品。提手部分加固处理，手提舒适且不易断裂。经典的纯色外观，无论是休闲出行还是职场办公都能完美搭配。无论是逛街、上班还是参加聚会，背着它都能彰显您的时尚品味和独特魅力。",
+        "description": "This handbag is the perfect choice for fashion enthusiasts. Made from high-quality durable leather, it offers a soft touch and premium feel. The minimalist design, free from excessive decorations, exudes elegance through its refined lines. The bag's spacious interior with well-organized compartments easily accommodates phones, wallets, cosmetics, and other daily essentials. The reinforced handle ensures comfortable carrying and durability. Its classic solid color design perfectly complements both casual outings and office wear. Whether shopping, working, or attending gatherings, this bag showcases your fashion sense and unique charm.",
     },
 ]
 
-with Page("表格演示") as page:
-    Header("表格组件演示", level=1)
+with Page("Table Demo") as page:
+    Header("Table Component Demo", level=1)
     Table(data=data)
     page.save("output/table_demo.html")

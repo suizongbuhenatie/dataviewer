@@ -17,7 +17,7 @@ class DefaultRenderer:
         if value is None:
             return ""
         elif isinstance(value, bool):
-            return "是" if value else "否"
+            return "Yes" if value else "No"
         elif isinstance(value, (list, dict)):
             import json
 

@@ -26,10 +26,10 @@ def run_demos():
     # Execute each demo
     for demo_file in demo_files:
         print(f"\nExecuting demo: {demo_file}")
-        # 使用os系统执行Python文件
+        # Execute Python file using os system
         result = os.system(f"python examples/{demo_file}")
         if result == 0:
-            print(f"\033[92m✓ {demo_file} 执行成功\033[0m")
+            print(f"\033[92m✓ {demo_file} execution successful\033[0m")
         else:
             print(f"\033[91m✗ {demo_file} execution failed: {result}\033[0m")
 

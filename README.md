@@ -1,104 +1,132 @@
 # DataViewer
 
+<div align="center">
+  <img src="imgs/banner.jpg" alt="DataViewer Banner" width="100%" style="border-radius: 10px;"/>
+  <p>
+    <a href="https://github.com/suizongbuhenatie/dataviewer/stargazers">
+      <img alt="GitHub stars" src="https://img.shields.io/github/stars/suizongbuhenatie/dataviewer">
+    </a>
+    <a href="https://github.com/suizongbuhenatie/dataviewer/network">
+      <img alt="GitHub forks" src="https://img.shields.io/github/forks/suizongbuhenatie/dataviewer">
+    </a>
+    <a href="https://github.com/suizongbuhenatie/dataviewer/issues">
+      <img alt="GitHub issues" src="https://img.shields.io/github/issues/suizongbuhenatie/dataviewer">
+    </a>
+    <a href="https://github.com/suizongbuhenatie/dataviewer/blob/main/LICENSE">
+      <img alt="License" src="https://img.shields.io/github/license/suizongbuhenatie/dataviewer">
+    </a>
+  </p>
+</div>
 
-<center><img src="imgs/banner.jpg" alt="banner" width="100%" style="border-radius: 10px;"/></center>
+## Overview
 
-一个简单易用的Python数据可视化工具,支持组件化开发和灵活布局。主要特点:
+DataViewer is a modern, high-performance Python library designed for interactive data visualization and presentation. Built with a focus on developer experience and flexibility, it provides a powerful component-based architecture that makes it easy to create sophisticated data visualizations and dashboards.
 
-- 组件化开发,提供丰富的预置组件
-- 支持灵活的布局系统(FlexRow、FlexColumn、Grid等)
-- 内置多种主题和样式
-- 简单直观的API设计
-
-<center>
+<div align="center">
     <div style="display: flex; justify-content: center; align-items: center;gap: 10px;">
-        <img src="imgs/screenshot.jpg" alt="example" width="50%" style="border-radius: 10px;"/>
-        <img src="imgs/screenshot2.jpg" alt="example" width="50%" style="border-radius: 10px;"/>
+        <img src="imgs/screenshot.jpg" alt="DataViewer Example" width="50%" style="border-radius: 10px;"/>
+        <img src="imgs/screenshot2.jpg" alt="DataViewer Example" width="50%" style="border-radius: 10px;"/>
     </div>
-</center>
+</div>
 
-## 主要组件
+## Installation
 
-### 布局组件
-- `FlexRow`: 水平弹性布局容器
-- `FlexColumn`: 垂直弹性布局容器
-- `Grid`: 网格布局容器
+### Prerequisites
+- Python 3.7+
+- pip package manager
 
-### 展示组件
-- `Table`: 表格组件，支持分页、排序、自定义列宽等功能
-- `JsonView`: JSON数据可视化组件，支持折叠/展开、深色/浅色主题
-- `Image`: 图片组件，支持懒加载和缩放
-- `Header`: 标题组件，支持多级标题和对齐方式
-- `Tag`: 标签组件，支持多种颜色和尺寸
-- `Video`: 视频组件，支持多种样式
+### Quick Install
+```bash
+pip install git+https://github.com/suizongbuhenatie/dataviewer.git
+```
+
+### Development Install
+```bash
+git clone https://github.com/suizongbuhenatie/dataviewer.git
+cd dataviewer
+pip install -e .
+```
 
 ## Quick Start
 
+Run the demo examples to see DataViewer in action:
 ```bash
-pip install git+https://github.com/suizongbuhenatie/dataviewer.git
-
-python examples/run_demos.py # 输出结果在output目录下
+python examples/run_demos.py  # Results will be in the output directory
 ```
 
-## 使用示例
+## Core Components
 
-### 表格组件示例
+### Layout Components
+- `FlexRow`: Horizontal flexible container with customizable alignment and spacing
+- `FlexColumn`: Vertical flexible container with adjustable properties
+- `Grid`: Advanced grid layout system for complex arrangements
+
+### Display Components
+- `Table`: Feature-rich table component with pagination, sorting, and customizable column widths
+- `JsonView`: Interactive JSON visualization with collapsible nodes and theme support
+- `Image`: Optimized image component with lazy loading and zoom capabilities
+- `Header`: Hierarchical header component with alignment options
+- `Tag`: Versatile tag component with various styles and sizes
+- `Video`: Enhanced video component with customizable controls and styling
+
+## Usage Examples
+
+### Table Component
 ```python
 from dataviewer import Page, Table
 
 data = [
-    {"id": 1, "name": "张三", "age": 25},
-    {"id": 2, "name": "李四", "age": 30}
+    {"id": 1, "name": "John Doe", "age": 25},
+    {"id": 2, "name": "Jane Smith", "age": 30}
 ]
 
-with Page("表格示例") as page:
+with Page("Table Example") as page:
     Table(data=data)
-
     page.save("table_demo.html")
 ```
 
-### JSON视图组件示例
+### JSON Viewer Component
 ```python
 from dataviewer import Page, JsonView, FlexColumn
 
-# 示例JSON数据
 data = {
-    "name": "张三",
+    "name": "John Doe",
     "age": 30,
-    "hobbies": ["读书", "游泳"],
+    "hobbies": ["reading", "swimming"],
     "address": {
-        "city": "北京",
-        "street": "朝阳路"
+        "city": "New York",
+        "street": "5th Avenue"
     }
 }
 
-with Page("JSON示例") as page:
+with Page("JSON Example") as page:
     with FlexColumn(padding="2"):
         JsonView(data, theme="dark")
-
     page.save("json_demo.html")
 ```
 
-### 布局组件示例
+### Layout Example
 ```python
 from dataviewer import Page, FlexRow, FlexColumn, Header, Image
 
-with Page("布局示例") as page:
+with Page("Layout Example") as page:
     with FlexRow(gap="20px", justify="between"):
         with FlexColumn(padding="2"):
-            Header("左侧内容")
+            Header("Left Content")
             Image("path/to/image.jpg", width=300)
         with FlexColumn(padding="2"):
-            Header("右侧内容")
+            Header("Right Content")
             Image("path/to/image2.jpg", width=300)
-
     page.save("layout_demo.html")
 ```
 
-## 贡献指南
+## Documentation
 
-欢迎提交 Issue 和 Pull Request 来帮助改进 DataViewer。
+- [Getting Started Guide](https://github.com/suizongbuhenatie/dataviewer/wiki/getting-started)
+- [API Reference](https://github.com/suizongbuhenatie/dataviewer/wiki/api-reference)
+- [Examples Gallery](https://github.com/suizongbuhenatie/dataviewer/wiki/examples)
+- [Contributing Guide](https://github.com/suizongbuhenatie/dataviewer/wiki/contributing)
 
-## 许可证
+## License
 
-本项目采用 MIT 许可证。
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

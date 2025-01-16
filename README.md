@@ -120,13 +120,6 @@ with Page("Layout Example") as page:
     page.save("layout_demo.html")
 ```
 
-## Documentation
-
-- [Getting Started Guide](https://github.com/suizongbuhenatie/dataviewer/wiki/getting-started)
-- [API Reference](https://github.com/suizongbuhenatie/dataviewer/wiki/api-reference)
-- [Examples Gallery](https://github.com/suizongbuhenatie/dataviewer/wiki/examples)
-- [Contributing Guide](https://github.com/suizongbuhenatie/dataviewer/wiki/contributing)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

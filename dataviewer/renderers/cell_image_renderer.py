@@ -11,19 +11,19 @@ _IMAGE_PREVIEW_INITIALIZED = False
 
 @dataclass
 class CellImageRenderer:
-    """单元格图片渲染器"""
+    """Cell Image Renderer"""
 
     patterns: List[re.Pattern] = field(default_factory=list)
-    width: str = "200px"  # 图片宽度
-    height: Optional[str] = None  # 图片高度（可选）
-    lazy_load: bool = True  # 是否启用懒加载
+    width: str = "200px"  # Image width
+    height: Optional[str] = None  # Image height (optional)
+    lazy_load: bool = True  # Enable lazy loading
     level: int = 1
 
     def __repr__(self) -> str:
         return "CellImageRenderer()"
 
     def __post_init__(self):
-        """初始化时添加必要的样式和脚本到页面"""
+        """Initialize necessary styles and scripts on the page"""
         if "image_preview" not in Page._init_flags:
             Page._init_flags.add("image_preview")
 
@@ -81,7 +81,7 @@ class CellImageRenderer:
                 }
             </style>
             <div id="imagePreviewModal" class="image-preview-modal">
-                <img id="previewImage" src="" alt="预览图片" />
+                <img id="previewImage" src="" alt="Preview Image" />
             </div>
             <script>
                 function openImagePreview(img) {
@@ -120,7 +120,7 @@ class CellImageRenderer:
         )
 
     def can_render(self, value: Any) -> bool:
-        """检查是否可以渲染该值"""
+        """Check if the value can be rendered"""
         if isinstance(value, str):
             return self.has_valid_pattern(value) or self.has_valid_base64_pattern(value)
         elif isinstance(value, list):
@@ -131,10 +131,10 @@ class CellImageRenderer:
         return False
 
     def render(self, value: Union[str, List[str]]) -> str:
-        """渲染图片或图片列表"""
+        """Render image or image list"""
 
         def render_single_image(img_path: str) -> str:
-            # 添加懒加载属性
+            # Add lazy loading attribute
             loading_attr = ' loading="lazy"' if self.lazy_load else ""
             if self.has_valid_base64_pattern(img_path):
                 img_path = f"data:image/jpeg;base64,{img_path}"
@@ -144,7 +144,7 @@ class CellImageRenderer:
                  style="width: {self.width};"
                  class="cell-image"
                  onclick="openImagePreview(this)"{loading_attr}
-                 alt="图片" />
+                 alt="Image" />
             """
 
         if isinstance(value, list):

@@ -23,7 +23,7 @@ class CellVideoRenderer:
         )
 
     def render(self, value: Any) -> str:
-        # 生成HTML代码来播放视频
+        # Generate HTML code to play video
         width = f' width="{self.width}px"' if self.width else ""
         height = f' height="{self.height}px"' if self.height else ""
 

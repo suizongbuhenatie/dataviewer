@@ -1,5 +1,5 @@
 """
-DataViewer - 一个用于创建嵌套可视化的Python库
+DataViewer - A Python library for creating nested visualizations
 """
 from .logging import logger
 

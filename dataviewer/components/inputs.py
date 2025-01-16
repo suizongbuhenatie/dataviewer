@@ -6,7 +6,7 @@ from .base import LabeledComponent
 
 @dataclass
 class TextInput(LabeledComponent):
-    """文本输入框组件"""
+    """Text Input Component"""
 
     placeholder: str = ""
     value: str = ""
@@ -37,7 +37,7 @@ class TextInput(LabeledComponent):
 
 @dataclass
 class Button(LabeledComponent):
-    """按钮组件"""
+    """Button Component"""
 
     text: str = "Button"
     onclick: str = ""

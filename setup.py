@@ -7,7 +7,7 @@ setup(
     install_requires=["pytest>=7.0.0",],
     python_requires=">=3.7",
     author="suizongbuhenatie",
-    description="一个用于创建嵌套可视化的Python库",
+    description="A Python library for creating nested visualizations",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

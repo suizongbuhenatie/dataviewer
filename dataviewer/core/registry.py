@@ -3,7 +3,7 @@ from typing import Dict, Optional
 
 
 class ComponentRegistry:
-    """组件注册表，用于管理和验证组件ID"""
+    """Component registry for managing and validating component IDs"""
 
     _instance = None
     _components: Dict[str, "Component"] = {}
@@ -13,31 +13,27 @@ class ComponentRegistry:
             cls._instance = super(ComponentRegistry, cls).__new__(cls)
         return cls._instance
 
-    @classmethod
-    def register(cls, component: "Component") -> None:
-        """注册组件"""
-        if component.id in cls._components:
-            existing = cls._components[component.id]
-            warnings.warn(
-                f"ID '{component.id}' 已被使用:\n"
-                f"  - 当前组件: {component.__class__.__name__}\n"
-                f"  - 已存在组件: {existing.__class__.__name__}\n"
-                f"请确保每个组件的ID都是唯一的"
+    def register(self, component: "Component") -> None:
+        """Register a component"""
+        existing = self._components.get(component.id)
+        if existing is not None:
+            raise ValueError(
+                f"ID '{component.id}' is already in use:\n"
+                f"  - Current component: {component.__class__.__name__}\n"
+                f"  - Existing component: {existing.__class__.__name__}\n"
+                f"Please ensure each component has a unique ID"
             )
-        cls._components[component.id] = component
+        self._components[component.id] = component
 
-    @classmethod
-    def unregister(cls, component: "Component") -> None:
-        """取消注册组件"""
-        if component.id in cls._components:
-            del cls._components[component.id]
+    def unregister(self, component: "Component") -> None:
+        """Unregister a component"""
+        if component.id in self._components:
+            del self._components[component.id]
 
-    @classmethod
-    def clear(cls) -> None:
-        """清空注册表"""
-        cls._components.clear()
+    def clear(self) -> None:
+        """Clear the registry"""
+        self._components.clear()
 
-    @classmethod
-    def get(cls, id: str) -> Optional["Component"]:
-        """获取指定ID的组件"""
-        return cls._components.get(id)
+    def get(self, id: str) -> Optional["Component"]:
+        """Get component by ID"""
+        return self._components.get(id)

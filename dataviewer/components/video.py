@@ -4,20 +4,20 @@ from typing import Optional
 from .base import Component
 
 
+"""Video Component"""
+
 @dataclass
 class Video(Component):
-    """视频组件"""
-
-    src: str  # 视频路径
-    width: int = 400  # 宽度（像素）
-    height: Optional[int] = None  # 高度（像素）
-    css_class: str = ""  # CSS类名
+    src: str  # Video path
+    width: int = 400  # Width (pixels)
+    height: Optional[int] = None  # Height (pixels)
+    css_class: str = ""  # CSS class name
 
     def __init__(self, id: Optional[str] = None, **kwargs):
         super().__init__(id=id, **kwargs)
 
     def to_html(self) -> str:
-        # 处理样式
+        # Handle styles
         style = []
         if self.width:
             style.append(f"width: {self.width}px")
@@ -26,7 +26,7 @@ class Video(Component):
 
         style_attr = f' style="{"; ".join(style)}"' if style else ""
 
-        # 处理类名
+        # Handle class name
         classes = []
         if self.css_class:
             classes.extend(self.css_class.split())

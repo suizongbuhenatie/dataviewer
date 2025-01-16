@@ -98,7 +98,7 @@ class Component:
 
     def to_html(self) -> str:
         """将组件渲染为HTML"""
-        raise NotImplementedError("子类必须实现to_html方法")
+        raise NotImplementedError("Subclass must implement to_html method")
 
     def __enter__(self):
         """进入上下文"""
